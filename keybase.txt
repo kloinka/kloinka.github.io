@@ -1,0 +1,56 @@
+==================================================================
+https://keybase.io/kloinka
+--------------------------------------------------------------------
+
+I hereby claim:
+
+  * I am an admin of http://kloinka.com
+  * I am kloinka (https://keybase.io/kloinka) on keybase.
+  * I have a public key ASAULkTR3AmHemtziAc70fT2cKetH_2CrvuvuOzY5pG3Hgo
+
+To do so, I am signing this object:
+
+{
+  "body": {
+    "key": {
+      "eldest_kid": "0120142e44d1dc09877a6b7388073bd1f4f670a7ad1ffd82aefbafb8ecd8e691b71e0a",
+      "host": "keybase.io",
+      "kid": "0120142e44d1dc09877a6b7388073bd1f4f670a7ad1ffd82aefbafb8ecd8e691b71e0a",
+      "uid": "0fed2c5d31b495b945eef576ffa7f019",
+      "username": "kloinka"
+    },
+    "merkle_root": {
+      "ctime": 1580516436,
+      "hash": "ceab757d15d69999a4b22f518a9cfd77220e19963a29ee5b6e4265e2226067b461d5f58015b7e0ebfee449570c3a87a744d911511f6a25adfa53a376690cee77",
+      "hash_meta": "0e72659292f7441a5fc638f5eabcc1697cb66509c8c9f0ee7823d7af50b88212",
+      "seqno": 14442371
+    },
+    "service": {
+      "entropy": "lRm6CR4TDxFRK8ONbz2fifWu",
+      "hostname": "kloinka.com",
+      "protocol": "http:"
+    },
+    "type": "web_service_binding",
+    "version": 2
+  },
+  "client": {
+    "name": "keybase.io go client",
+    "version": "5.1.1"
+  },
+  "ctime": 1580516456,
+  "expire_in": 504576000,
+  "prev": "4a885b7a491fc502302a534a7a4edb85255e590ee26834bd246a6738b6d2c245",
+  "seqno": 10,
+  "tag": "signature"
+}
+
+which yields the signature:
+
+hKRib2R5hqhkZXRhY2hlZMOpaGFzaF90eXBlCqNrZXnEIwEgFC5E0dwJh3prc4gHO9H09nCnrR/9gq77r7js2OaRtx4Kp3BheWxvYWTESpcCCsQgSohbekkfxQIwKlNKek7bhSVeWQ7iaDS9JGpnOLbSwkXEINFeiiM9bVrmAgW4wjlaMNfnxIOeL1L9RgDO7xfU8xbFAgHCo3NpZ8RAnr1brU+YKqUenn6i4NsIIts7m+UUi19XCshJfRNm41Og0CBt5fO/9NlBmp+LuWKLxzT7n7NLTa+cohisZAVVCahzaWdfdHlwZSCkaGFzaIKkdHlwZQildmFsdWXEICnyMARWa8pjgQcBshBSP5BhwT/yHdbE/kzlZsDnS88qo3RhZ80CAqd2ZXJzaW9uAQ==
+
+And finally, I am proving ownership of this host by posting or
+appending to this document.
+
+View my publicly-auditable identity here: https://keybase.io/kloinka
+
+==================================================================

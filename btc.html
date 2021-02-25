@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html class="client-js" lang="en" dir="ltr"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<title>Original Bitcoin client/API calls list</title>
+
+<h2><span class="mw-headline" id="Common_operations">Common operations</span></h2>
+<h3><span class="mw-headline" id="Listing_my_bitcoin_addresses">Listing my bitcoin addresses</span></h3>
+<p>Listing the bitcoin <a href="https://en.bitcoin.it/wiki/Address" class="mw-redirect" title="Address">addresses</a> in your wallet is easily done via <i>listreceivedbyaddress</i>. It normally lists only addresses which already have received transactions, however you can list all the addresses by setting the first argument to 0, and the second one to true.
+</p><p><a href="https://en.bitcoin.it/wiki/Accounts_explained" class="mw-redirect" title="Accounts explained">Accounts</a> are used to organize addresses.
+</p>
+<h2><span class="mw-headline" id="Full_list">Full list</span></h2>
+<p>Required arguments are denoted inside &lt; and &gt; Optional arguments are inside [ and ].
+</p>
+<table class="wikitable">
+<tbody><tr>
+<th> Command </th>
+<th> Parameters </th>
+<th> Description </th>
+<th> Requires unlocked wallet? (v0.4.0+)
+</th></tr>
+<tr>
+<td> <code>addmultisigaddress</code> </td>
+<td> &lt;nrequired&gt; &lt;'["key","key"]'&gt; [account] </td>
+<td> Add a nrequired-to-sign multisignature address to the wallet. Each key is a bitcoin address or hex-encoded public key. If [account] is specified, assign address to [account]. Returns a string containing the address. </td>
+<td> N
+</td></tr>
+<tr>
+<td> <code>addnode</code> </td>
+<td> &lt;node&gt; &lt;add/remove/onetry&gt; </td>
+<td> <b>version 0.8</b> Attempts add or remove &lt;node&gt; from the addnode list or try a connection to &lt;node&gt; once. </td>
+<td> N
+</td></tr>
+<tr>
+<td> <code>backupwallet</code> </td>
+<td> &lt;destination&gt; </td>
+<td> Safely copies wallet.dat to destination, which can be a directory or a path with filename. </td>
+<td> N
+</td></tr>
+<tr>
+<td> <code>createmultisig</code> </td>
+<td> &lt;nrequired&gt; &lt;'["key,"key"]'&gt; </td>
+<td> Creates a multi-signature address and returns a json object </td>
+<td>
+</td></tr>
+<tr>
+<td> <code>createrawtransaction</code> </td>
+<td> [{"txid":txid,"vout":n},...] {address:amount,...} </td>
+<td> <b>version 0.7</b> Creates a <a href="https://en.bitcoin.it/wiki/Raw_Transactions" title="Raw Transactions">raw transaction</a> spending given inputs. </td>
+<td> N
+</td></tr>
+<tr>
+<td> <code>decoderawtransaction</code> </td>
+<td> &lt;hex string&gt; </td>
+<td> <b>version 0.7</b> Produces a human-readable JSON object for a <a href="https://en.bitcoin.it/wiki/Raw_Transactions" title="Raw Transactions">raw transaction</a>. </td>
+<td> N
+</td></tr>
+<tr>
+<td> <code>dumpprivkey</code> </td>
+<td> &lt;bitcoinaddress&gt; </td>
+<td> Reveals the private key corresponding to &lt;bitcoinaddress&gt; </td>
+<td> Y
+</td></tr>
+<tr>
+<td> <code>dumpwallet</code> </td>
+<td> &lt;filename&gt; </td>
+<td> <b>version 0.13.0</b> Exports all wallet private keys to file </td>
+<td> Y
+</td></tr>
+<tr>
+<td> <code>encryptwallet</code> </td>
+<td> &lt;passphrase&gt; </td>
+<td> Encrypts the wallet with &lt;passphrase&gt;. </td>
+<td> N
+</td></tr>
+<tr>
+<td> <code>getaccount</code> </td>
+<td> &lt;bitcoinaddress&gt; </td>
+<td> Returns the account associated with the given address. </td>
+<td> N
+</td></tr>
+<tr>
+<td> <code>getaccountaddress</code> </td>
+<td> &lt;account&gt; </td>
+<td> Returns the current bitcoin address for receiving payments to this account. If &lt;account&gt; does not exist, it will be created along with an associated new address that will be returned. </td>
+<td> N
+</td></tr>
+<tr>
+<td> <code>getaddednodeinfo</code> </td>
+<td> &lt;dns&gt; [node] </td>
+<td> <b>version 0.8</b> Returns information about the given added node, or all added nodes
+<p>(note that onetry addnodes are not listed here)
+If dns is false, only a list of added nodes will be provided,
+otherwise connected information will also be available.
+</p>
+</td></tr>
+<tr>
+<td> <code>getaddressesbyaccount</code> </td>
+<td> &lt;account&gt; </td>
+<td> Returns the list of addresses for the given account. </td>
+<td> N
+</td></tr>
+<tr>
+<td> <code>getbalance</code> </td>
+<td> [account] [minconf=1] </td>
+<td> If [account] is not specified, returns the server's total available balance.<br>If [account] is specified, returns the balance in the account. </td>
+<td> N
+</td></tr>
+<tr>
+<td> <code>getbestblockhash</code> </td>
+<td> </td>
+<td> <b>version 0.9</b> Returns the hash of the best (tip) block in the longest block chain. </td>
+<td> N
+</td></tr>
+<tr>
+<td> <code>getblock</code> </td>
+<td> &lt;hash&gt; </td>
+<td> Returns information about the block with the given hash. </td>
+<td> N
+</td></tr>
+<tr>
+<td> <code>getblockcount</code> </td>
+<td> </td>
+<td> Returns the number of blocks in the longest block chain. </td>
+<td> N
+</td></tr>
+<tr>
+<td> <code>getblockhash</code> </td>
+<td> &lt;index&gt; </td>
+<td> Returns hash of block in best-block-chain at &lt;index&gt;; index 0 is the <a href="https://en.bitcoin.it/wiki/Genesis_block" title="Genesis block">genesis block</a> </td>
+<td> N
+</td></tr>
+<tr>
+<td> <code>getblocknumber</code> </td>
+<td> </td>
+<td> <b>Deprecated</b>. <b>Removed in version 0.7</b>. Use getblockcount. </td>
+<td> N
+</td></tr>
+<tr>
+<td> <code>getblocktemplate</code> </td>
+<td> [params] </td>
+<td> Returns data needed to construct a block to work on. See <a href="https://en.bitcoin.it/wiki/BIP_0022" title="BIP 0022">BIP_0022</a> for more info on params.</td>
+<td> N
+</td></tr>
+<tr>
+<td> <code>getconnectioncount</code> </td>
+<td> </td>
+<td> Returns the number of connections to other nodes. </td>
+<td> N
+</td></tr>
+<tr>
+<td> <code>getdifficulty</code> </td>
+<td> </td>
+<td> Returns the proof-of-work difficulty as a multiple of the minimum difficulty. </td>
+<td> N
+</td></tr>
+<tr>
+<td> <code>getgenerate</code> </td>
+<td> </td>
+<td> Returns true or false whether bitcoind is currently generating hashes </td>
+<td> N
+</td></tr>
+<tr>
+<td> <code>gethashespersec</code> </td>
+<td> </td>
+<td> Returns a recent hashes per second performance measurement while generating. </td>
+<td> N
+</td></tr>
+<tr>
+<td> <code>getinfo</code> </td>
+<td> </td>
+<td> Returns an object containing various state info. </td>
+<td> N
+</td></tr>
+<tr>
+<td> <code>getmemorypool</code> </td>
+<td> [data] </td>
+<td> <b>Replaced in v0.7.0 with getblocktemplate, submitblock, getrawmempool</b> </td>
+<td> N
+</td></tr>
+<tr>
+<td> <code>getmininginfo</code> </td>
+<td> </td>
+<td> Returns an object containing mining-related information:
+<ul><li> blocks</li>
+<li> currentblocksize</li>
+<li> currentblocktx</li>
+<li> difficulty</li>
+<li> errors</li>
+<li> generate</li>
+<li> genproclimit</li>
+<li> hashespersec</li>
+<li> pooledtx</li>
+<li> testnet</li></ul>
+</td>
+<td> N
+</td></tr>
+<tr>
+<td> <code>getnewaddress</code> </td>
+<td> [account] </td>
+<td> Returns a new bitcoin address for receiving payments. If [account] is specified payments received with the address will be credited to [account]. </td>
+<td> N
+</td></tr>
+<tr>
+<td> <code>getpeerinfo</code> </td>
+<td> </td>
+<td> <b>version 0.7</b> Returns data about each connected node. </td>
+<td> N
+</td></tr>
+<tr>
+<td> <code>getrawchangeaddress</code> </td>
+<td> [account]</td>
+<td> <b>version 0.9</b> Returns a new Bitcoin address, for receiving change. This is for use with raw transactions, NOT normal use. </td>
+<td> N
+</td></tr>
+<tr>
+<td> <code>getrawmempool</code> </td>
+<td> </td>
+<td> <b>version 0.7</b> Returns all transaction ids in memory pool </td>
+<td> N
+</td></tr>
+<tr>
+<td> <code>getrawtransaction</code> </td>
+<td> &lt;txid&gt; [verbose=0] </td>
+<td> <b>version 0.7</b> Returns <a href="https://en.bitcoin.it/wiki/Raw_Transactions" title="Raw Transactions">raw transaction</a> representation for given transaction id. </td>
+<td> N
+</td></tr>
+<tr>
+<td> <code>getreceivedbyaccount</code> </td>
+<td> [account] [minconf=1] </td>
+<td> Returns the total amount received by addresses with [account] in transactions with at least [minconf] confirmations. If [account] not provided return will include all transactions to all accounts. (version 0.3.24) </td>
+<td> N
+</td></tr>
+<tr>
+<td> <code>getreceivedbyaddress</code> </td>
+<td> &lt;bitcoinaddress&gt; [minconf=1] </td>
+<td> Returns the amount received by &lt;bitcoinaddress&gt; in transactions with at least [minconf] confirmations. It correctly handles the case where someone has sent to the address in multiple transactions. Keep in mind that addresses are only ever used for receiving transactions. Works only for addresses in the local wallet, external addresses will always show 0. </td>
+<td> N
+</td></tr>
+<tr>
+<td> <code>gettransaction</code> </td>
+<td> &lt;txid&gt; </td>
+<td> Returns an object about the given transaction containing:
+<ul><li> "amount"&nbsp;: total amount of the transaction</li>
+<li> "confirmations"&nbsp;: number of confirmations of the transaction</li>
+<li> "txid"&nbsp;: the transaction ID</li>
+<li> "time"&nbsp;: time associated with the transaction<sup id="cite_ref-1" class="reference"><a href="https://en.bitcoin.it/wiki/Original_Bitcoin_client/API_calls_list#cite_note-1">[1]</a></sup>.</li>
+<li> "details" - An array of objects containing:
+<ul><li> "account"</li>
+<li> "address"</li>
+<li> "category"</li>
+<li> "amount"</li>
+<li> "fee"</li></ul></li></ul>
+</td>
+<td> N
+</td></tr>
+<tr>
+<td> <code>gettxout</code> </td>
+<td> &lt;txid&gt; &lt;n&gt; [includemempool=true] </td>
+<td> Returns details about an <a href="https://en.bitcoin.it/wiki/UTXO" title="UTXO">unspent transaction output (UTXO)</a> </td>
+<td> N
+</td></tr>
+<tr>
+<td> <code>gettxoutsetinfo</code> </td>
+<td> </td>
+<td> Returns statistics about the unspent transaction output (UTXO) set </td>
+<td> N
+</td></tr>
+<tr>
+<td> <code><a href="https://en.bitcoin.it/wiki/Getwork" title="Getwork">getwork</a></code> </td>
+<td> [data] </td>
+<td> If [data] is not specified, returns formatted hash data to work on:
+<ul><li> "midstate"&nbsp;: precomputed hash state after hashing the first half of the data</li>
+<li> "data"&nbsp;: block data</li>
+<li> "hash1"&nbsp;: formatted hash buffer for second hash</li>
+<li> "target"&nbsp;: little endian hash target</li></ul>
+<p>If [data] is specified, tries to solve the block and returns true if it was successful.
+</p>
+</td>
+<td> N
+</td></tr>
+<tr>
+<td> <code>help</code> </td>
+<td> [command] </td>
+<td> List commands, or get help for a command. </td>
+<td> N
+</td></tr>
+<tr>
+<td> <code>importprivkey</code> </td>
+<td> &lt;bitcoinprivkey&gt; [label] [rescan=true]</td>
+<td> Adds a private key (as returned by dumpprivkey) to your wallet. This may take a while, as a <a href="https://en.bitcoin.it/wiki/How_to_import_private_keys#Import_Private_key.28s.29" title="How to import private keys">rescan</a> is done, looking for existing transactions. <b>Optional [rescan] parameter added in 0.8.0.</b> Note: There's no need to import public key, as in <a href="https://en.bitcoin.it/wiki/Elliptic_Curve_Digital_Signature_Algorithm" title="Elliptic Curve Digital Signature Algorithm">ECDSA</a> (unlike RSA) this can be computed from private key. </td>
+<td> Y
+</td></tr>
+<tr>
+<td> <code>invalidateblock</code> </td>
+<td> &lt;hash&gt; </td>
+<td> Permanently marks a block as invalid, as if it violated a consensus rule.</td>
+<td> N
+</td></tr>
+<tr>
+<td> <code>keypoolrefill</code> </td>
+<td> </td>
+<td> Fills the keypool, requires wallet passphrase to be set. </td>
+<td> Y
+</td></tr>
+<tr>
+<td> <code>listaccounts</code> </td>
+<td> [minconf=1] </td>
+<td> Returns Object that has account names as keys, account balances as values. </td>
+<td> N
+</td></tr>
+<tr>
+<td> <code>listaddressgroupings</code> </td>
+<td> </td>
+<td> <b>version 0.7</b> Returns all addresses in the wallet and info used for coincontrol. </td>
+<td> N
+</td></tr>
+<tr>
+<td> <code>listreceivedbyaccount</code> </td>
+<td> [minconf=1] [includeempty=false] </td>
+<td> Returns an array of objects containing:
+<ul><li> "account"&nbsp;: the account of the receiving addresses</li>
+<li> "amount"&nbsp;: total amount received by addresses with this account</li>
+<li> "confirmations"&nbsp;: number of confirmations of the most recent transaction included</li></ul>
+</td>
+<td> N
+</td></tr>
+<tr>
+<td> <code>listreceivedbyaddress</code> </td>
+<td> [minconf=1] [includeempty=false] </td>
+<td> Returns an array of objects containing:
+<ul><li> "address"&nbsp;: receiving address</li>
+<li> "account"&nbsp;: the account of the receiving address</li>
+<li> "amount"&nbsp;: total amount received by the address</li>
+<li> "confirmations"&nbsp;: number of confirmations of the most recent transaction included</li></ul>
+<p>To get a list of accounts on the system, execute bitcoind listreceivedbyaddress 0 true
+</p>
+</td>
+<td> N
+</td></tr>
+<tr>
+<td> <code>listsinceblock</code> </td>
+<td> [blockhash] [target-confirmations] </td>
+<td> Get all transactions in blocks since block [blockhash], or all transactions if omitted. [target-confirmations] intentionally <b>does not</b> affect the list of returned transactions, but only affects the returned "lastblock" value.<a rel="nofollow" class="external autonumber" href="https://github.com/bitcoin/bitcoin/pull/199#issuecomment-1514952">[1]</a> </td>
+<td> N
+</td></tr>
+<tr>
+<td> <code>listtransactions</code> </td>
+<td> [account] [count=10] [from=0] </td>
+<td> Returns up to [count] most recent transactions skipping the first [from] transactions for account [account]. If [account] not provided it'll return recent transactions from all accounts.
+</td>
+<td> N
+</td></tr>
+<tr>
+<td> <code>listunspent</code> </td>
+<td> [minconf=1] [maxconf=999999] </td>
+<td> <b>version 0.7</b> Returns array of unspent transaction inputs in the wallet. </td>
+<td> N
+</td></tr>
+<tr>
+<td> <code>listlockunspent</code> </td>
+<td> </td>
+<td> <b>version 0.8</b> Returns list of temporarily unspendable outputs
+</td></tr>
+<tr>
+<td> <code>lockunspent</code> </td>
+<td> &lt;unlock?&gt; [array-of-objects] </td>
+<td> <b>version 0.8</b> Updates list of temporarily unspendable outputs
+</td></tr>
+<tr>
+<td> <code>move</code> </td>
+<td> &lt;fromaccount&gt; &lt;toaccount&gt; &lt;amount&gt; [minconf=1] [comment] </td>
+<td> Move from one account in your wallet to another </td>
+<td> N
+</td></tr>
+<tr>
+<td> <code>sendfrom</code> </td>
+<td> &lt;fromaccount&gt; &lt;tobitcoinaddress&gt; &lt;amount&gt; [minconf=1] [comment] [comment-to] </td>
+<td> &lt;amount&gt; is a real and is rounded to 8 decimal places. Will send the given amount to the given address, ensuring the account has a valid balance using [minconf] confirmations. Returns the transaction ID if successful (not in JSON object). </td>
+<td> Y
+</td></tr>
+<tr>
+<td> <code>sendmany</code> </td>
+<td> &lt;fromaccount&gt; {address:amount,...} [minconf=1] [comment] </td>
+<td> amounts are double-precision floating point numbers </td>
+<td> Y
+</td></tr>
+<tr>
+<td> <code>sendrawtransaction</code> </td>
+<td> &lt;hexstring&gt; </td>
+<td> <b>version 0.7</b> Submits <a href="https://en.bitcoin.it/wiki/Raw_Transactions" title="Raw Transactions">raw transaction</a> (serialized, hex-encoded) to local node and network. </td>
+<td> N
+</td></tr>
+<tr>
+<td> <code>sendtoaddress</code> </td>
+<td> &lt;bitcoinaddress&gt; &lt;amount&gt; [comment] [comment-to] </td>
+<td> &lt;amount&gt; is a real and is rounded to 8 decimal places. Returns the transaction ID &lt;txid&gt; if successful. </td>
+<td> Y
+</td></tr>
+<tr>
+<td> <code>setaccount</code> </td>
+<td> &lt;bitcoinaddress&gt; &lt;account&gt; </td>
+<td> Sets the account associated with the given address. Assigning address that is already assigned to the same account will create a new address associated with that account. </td>
+<td> N
+</td></tr>
+<tr>
+<td> <code>setgenerate</code> </td>
+<td> &lt;generate&gt; [genproclimit] </td>
+<td> &lt;generate&gt; is true or false to turn generation on or off.<br>Generation is limited to [genproclimit] processors, -1 is unlimited. </td>
+<td> N
+</td></tr>
+<tr>
+<td> <code>settxfee</code> </td>
+<td> &lt;amount&gt; </td>
+<td> &lt;amount&gt; is a real and is rounded to the nearest 0.00000001 </td>
+<td> N
+</td></tr>
+<tr>
+<td> <code>signmessage</code> </td>
+<td> &lt;bitcoinaddress&gt; &lt;message&gt; </td>
+<td> Sign a message with the private key of an address. </td>
+<td> Y
+</td></tr>
+<tr>
+<td> <code>signrawtransaction</code> </td>
+<td> &lt;hexstring&gt; [{"txid":txid,"vout":n,"scriptPubKey":hex},...] [&lt;privatekey1&gt;,...] </td>
+<td> <b>version 0.7</b> Adds signatures to a <a href="https://en.bitcoin.it/wiki/Raw_Transactions" title="Raw Transactions">raw transaction</a> and returns the resulting raw transaction. </td>
+<td> Y/N
+</td></tr>
+<tr>
+<td> <code>stop</code> </td>
+<td> </td>
+<td> Stop bitcoin server. </td>
+<td> N
+</td></tr>
+<tr>
+<td> <code>submitblock</code> </td>
+<td> &lt;hex data&gt; [optional-params-obj] </td>
+<td> Attempts to submit new block to network. </td>
+<td> N
+</td></tr>
+<tr>
+<td> <code>validateaddress</code> </td>
+<td> &lt;bitcoinaddress&gt; </td>
+<td> Return information about &lt;bitcoinaddress&gt;. </td>
+<td> N
+</td></tr>
+<tr>
+<td> <code>verifymessage</code> </td>
+<td> &lt;bitcoinaddress&gt; &lt;signature&gt; &lt;message&gt; </td>
+<td> Verify a signed message. </td>
+<td> N
+</td></tr>
+<tr>
+<td> <code>walletlock</code> </td>
+<td> </td>
+<td> Removes the wallet encryption key from memory, locking the wallet. After calling this method, you will need to call walletpassphrase again before being able to call any methods which require the wallet to be unlocked. </td>
+<td> N
+</td></tr>
+<tr>
+<td> <code>walletpassphrase</code> </td>
+<td> &lt;passphrase&gt; &lt;timeout&gt; </td>
+<td> Stores the wallet decryption key in memory for &lt;timeout&gt; seconds. </td>
+<td> N
+</td></tr>
+<tr>
+<td> <code>walletpassphrasechange</code> </td>
+<td> &lt;oldpassphrase&gt; &lt;newpassphrase&gt; </td>
+<td> Changes the wallet passphrase from &lt;oldpassphrase&gt; to &lt;newpassphrase&gt;. </td>
+<td> N
+</td></tr></tbody></table>
+
+
+<div class="suggestions" style="display: none; font-size: 13px;"><div class="suggestions-results"></div><div class="suggestions-special"></div></div></body></html>
